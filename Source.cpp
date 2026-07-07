@@ -8,11 +8,11 @@
 using namespace std;
 using namespace System;
 
-struct Pez {
-	int x;
-	int y;
-	bool visible;
-	time_t tiempo_desaparicion;
+struct Pez { //Es una forma de crear un tipo de dato personalizado que agrupa varias variables relacionadas bajo un mismo nombre
+	int x; //Coordenadas donde se dibuja el pez
+	int y; //Coordenadas donde se dibuja el pez
+	bool visible, travieso, capturado;
+	time_t tiempo_desaparicion; //Guarda el momento exacto en que el jugador resolvió/falló la división de ese pez
 
 };
 
@@ -59,9 +59,111 @@ void burbujas()
 	SetConsoleOutputCP(437);
 }
 
-void gatito_derecha(int x, int y)
+void pecesito(int x, int y)
+{
+	string lineas[5] = {
+
+"|\\   \\\\__     o",
+"| \\_/   o \\     o",
+"> _   ((  <_  oo",
+"| / \\__+__/",
+"|/     |/"
+
+	};
+
+	Console::SetCursorPosition(x, y);
+	cout << lineas[0];
+	Console::SetCursorPosition(x, y + 1);
+	cout << lineas[1];
+	Console::SetCursorPosition(x, y + 2);
+	cout << lineas[2];
+	Console::SetCursorPosition(x, y + 3);
+	cout << lineas[3];
+	Console::SetCursorPosition(x, y + 4);
+	cout << lineas[4];
+}
+
+void foca(int x, int y)
 {
 	string lineas[4] = {
+	"   ___  ",
+	"  /  .\\ ",
+	" /  =__|",
+	"/    ||"
+	};
+
+	Console::SetCursorPosition(x, y);
+	cout << lineas[0];
+	Console::SetCursorPosition(x, y + 1);
+	cout << lineas[1];
+	Console::SetCursorPosition(x, y + 2);
+	cout << lineas[2];
+	Console::SetCursorPosition(x, y + 3);
+	cout << lineas[3];
+}
+
+void pantalla_carga()
+{
+
+	int pasos = 60;
+
+	for (int x = 0; x <= pasos; x += 2)
+	{
+		system("cls");
+
+		Console::ForegroundColor = ConsoleColor::Cyan;
+
+		Console::SetCursorPosition(10, 3);
+		cout << "Cargando Pesca Gatuna..." << endl;
+		Console::SetCursorPosition(10, 4);
+		cout << "Por precaucion, coloca tu pantalla en pantalla completa (F11)" << endl;
+
+		Console::ResetColor();
+
+		Console::ForegroundColor = ConsoleColor::Yellow;
+		pecesito(45, 7);
+		Console::ResetColor();
+
+		foca(0, 21);
+		foca(15, 21);
+		foca(30, 21);
+		foca(45, 21);
+		foca(60, 21);
+		foca(75, 21);
+		foca(90, 21);
+		foca(105, 21);
+
+		int porcentaje;
+
+		porcentaje = (x * 100) / pasos;
+
+		Console::SetCursorPosition(10, 15);
+		cout << "[";
+
+		for (int j = 0; j < 30; j++)
+		{
+			if (j < (porcentaje * 30) / 100)
+			{
+				cout << "><>";
+			}
+
+			else
+			{
+				cout << " ";
+			}
+		}
+
+		cout << "] " << porcentaje << endl;
+
+		Sleep(200);
+	}
+
+	system("cls");
+}
+
+void gatito_derecha(int x, int y) //Recibe dos parámetros: x (columna) e y (fila) 
+{
+	string lineas[4] = { //Aquí guardas el dibujo del gatito como 4 strings. Es un arreglo de tamaño fijo porque el gatito siempre tiene la misma altura.
 
 		" /')   ,\\__/|",
 		"( (.--.|  _ _|",
@@ -596,9 +698,9 @@ void mostrar_mensaje4(int x, int y)
 {
 	SetConsoleOutputCP(65001);
 	string lineas[3] = {
-		"╔═════════════════════════════════════════════╗",
-		"║ Vaya, ahora mi personaje es un lindo gatito ║",
-		"╚═════════════════════════════════════════════╝",
+		"╔════════════════════════════════════════════════════════╗",
+		"║ Este portal me ha llevado a otro mundo, debo ir a casa ║",
+		"╚════════════════════════════════════════════════════════╝",
 	};
 
 	Console::SetCursorPosition(x, y);
@@ -647,21 +749,7 @@ _ _\     /_ _ _ _\     /_ _ _ _\     /_ _ _ _\     /_ _ _ _\     /_ _
 	Console::ResetColor();
 }
 
-void tablero(int vidas, int peces)
-{
-	Console::SetCursorPosition(0, 0);
-	cout << "Vidas: ";
-	for (int i = 0; i < vidas; i++)
-	{
-		cout << "<3";
-	}
-	cout << "" << endl;
-	cout << "Peces: ";
-	for (int i = 0; i < peces; i++)
-		cout << "><>";
-}
-
-void dibujarpeces(Pez* listapeces, int cantidad)
+void dibujarpeces(Pez* listapeces, int cantidad) //listapeces se vuelve un puntero pez
 {
 	string pez[5] = {
 		"         O  o",
@@ -673,51 +761,99 @@ void dibujarpeces(Pez* listapeces, int cantidad)
 
 	for (int i = 0; i < cantidad; i++)
 	{
-		Pez* p = listapeces + i; // puntero apuntando al i-ésimo pez del arreglo dinámico
+		Pez* p = listapeces + i; //Avanza tantas casillas de tamaño Pez
 
-		if (p->visible == true)
+		if (p->visible == true) //p: la dirección de memoria donde vive ese pez //->:el operador que dice "ve a esa dirección y entra al struct que está ahí".
 		{
-			Console::ForegroundColor = ConsoleColor::Cyan;
-			Console::SetCursorPosition(p->x, p->y);
-			cout << pez[0];
-			Console::SetCursorPosition(p->x, p->y + 1);
-			cout << pez[1];
-			Console::SetCursorPosition(p->x, p->y + 2);
-			cout << pez[2];
-			Console::SetCursorPosition(p->x, p->y + 3);
-			cout << pez[3];
-			Console::SetCursorPosition(p->x, p->y + 4);
-			cout << pez[4];
-			Console::ResetColor();
+			//Usamos -> en vez de . porque p es un puntero
+			//Esto se lee: "si el campo visible del pez al que apunta p es igual a true".
+			//visible es de tipo bool, así que solo puede valer true o false.
+			//Si ese pez específico está marcado como visible(no fue atrapado todavía, o ya pasaron los 10 segundos de respawn), la condición se cumple y entra al if para dibujarlo.
+		    //Si está en false (fue atrapado hace poco y sigue "escondido"), la condición no se cumple, y la función simplemente no lo dibuja — pasa al siguiente pez del for.
+			
+			if (p->travieso)
+			{
+				Console::ForegroundColor = ConsoleColor::Yellow;
+				pecesito(p->x, p->y);
+			}
+
+			else
+			{
+				Console::ForegroundColor = ConsoleColor::Cyan;
+
+				Console::SetCursorPosition(p->x, p->y);
+				cout << pez[0];
+				Console::SetCursorPosition(p->x, p->y + 1);
+				cout << pez[1];
+				Console::SetCursorPosition(p->x, p->y + 2);
+				cout << pez[2];
+				Console::SetCursorPosition(p->x, p->y + 3);
+				cout << pez[3];
+				Console::SetCursorPosition(p->x, p->y + 4);
+				cout << pez[4];
+				Console::ResetColor();
+			}
 		}
 	}
 }
 
-void generar_division(int dificultad, int& dividendo, int& divisor, int& respuesta_correcta)
+//Dibuja la interfaz de vidas y peces en la esquina superior izquierda de la consola, cada vez que se refresca la pantalla del juego.
+
+void tablero(int vidas, int peces) //Recibe dos enteros: cuántas vidas le quedan al jugador y cuántos peces ha atrapado.
 {
+	Console::SetCursorPosition(0, 0); //No es parametro, asi que la posición se pone fija
+	cout << "Vidas: ";
+	for (int i = 0; i < vidas; i++) //Dibuja las vidas
+	{
+		cout << "<3";
+	}
+	cout << "" << endl;
+	cout << "Peces: ";
+	for (int i = 0; i < peces; i++) //Dibuja los peces atrapados
+		cout << "><>";
+	//No usamos struct porque no hay nada que agrupar
+}
+
+void generar_division(int dificultad, int& dividendo, int& divisor, int& respuesta_correcta)
+{ //& es por referencia.
+  //El problema es que una función normal en C++ solo puede return un valor. 
+  //Pero aquí necesitas calcular tres cosas a la vez: el dividendo, el divisor y la respuesta correcta. 
+  // Las referencias son la forma de que una función "devuelva" varios resultados al mismo tiempo — en vez de hacer return
+
 	int divisorMin, divisorMax, cocienteMin, cocienteMax;
 
-	if (dificultad == 1)
+	//Encontramos los niveles del juego
+	//Con dificultad == 1, el divisor será entre 1 y 3, y el cociente (la respuesta) entre 1 y 5.
+
+	if (dificultad == 1) 
 	{
 		divisorMin = 1; divisorMax = 3;
 		cocienteMin = 1; cocienteMax = 5;
 	}
 
+	//Para una mejora del juego, se planea poner más dificultades, pero al ser para niños pequeños, se tiene esto.
+
+	//Por qué genera primero la respuesta y el divisor, y el dividendo al final
+	//porque asi arantizamos matemáticamente que la división siempre va a dar exacto
 	divisor = divisorMin + rand() % (divisorMax - divisorMin + 1);
 	respuesta_correcta = cocienteMin + rand() % (cocienteMax - cocienteMin + 1);
 	dividendo = divisor * respuesta_correcta;
+	//rand() da un número entero gigante y aleatorio.
+	//% (max - min + 1) lo reduce a un rango de 0 hasta(max - min).
+	//+ min desplaza ese rango para que empiece en min en vez de en 0.
 }
 
 // Reserva memoria dinámica para una matriz de "filas" x "columnas"
-int** crear_matriz(int filas, int columnas)
-{
+int** crear_matriz(int filas, int columnas) //int** es un puntero a un puntero a un entero 
+{ //matriz no apunta directamente a números. Apunta a un arreglo de punteros (int*), donde cada uno de esos punteros va a apuntar a su propia fila de números.
 	int** matriz = new int* [filas];
-	for (int i = 0; i < filas; i++)
+	for (int i = 0; i < filas; i++) //por cada fila, se reserve un bloque de memoria totalmente independiente 
 		matriz[i] = new int[columnas];
 	return matriz;
 }
 
-// Libera toda la memoria dinámica reservada por una matriz
+//Esta funcion es la inversa de crear_matriz
+//Libera toda la memoria dinámica reservada por la matriz
 void liberar_matriz(int** matriz, int filas)
 {
 	for (int i = 0; i < filas; i++)
@@ -726,30 +862,42 @@ void liberar_matriz(int** matriz, int filas)
 }
 
 int** agregar_fila(int** matrizVieja, int filasActuales, int columnas, int dividendo, int divisor, int respuesta, int correcto)
-{
+{//Primero, crea una matriz completamente nueva, con una fila más que la anterior. 
 	int** matrizNueva = crear_matriz(filasActuales + 1, columnas);
 
+	//el for de afuera recorre cada fila vieja, y el for de adentro recorre cada columna dentro de esa fila. 
+	//Juntos, copian celda por celda todo el contenido de matrizVieja hacia las mismas posiciones en matrizNueva.
+
 	for (int i = 0; i < filasActuales; i++)
+	{
 		for (int j = 0; j < columnas; j++)
+		{
 			matrizNueva[i][j] = matrizVieja[i][j];
+		}
+	}
 
 	matrizNueva[filasActuales][0] = dividendo;
 	matrizNueva[filasActuales][1] = divisor;
 	matrizNueva[filasActuales][2] = respuesta;
 	matrizNueva[filasActuales][3] = correcto;
 
-	liberar_matriz(matrizVieja, filasActuales);
+	liberar_matriz(matrizVieja, filasActuales); //Una vez que se copiasto todo lo que se necesitaba a la matriz nueva, borras la matriz vieja
 
-	return matrizNueva;
+	return matrizNueva; //Se devuelve la matriz
 }
 
 void mostrar_historial(int** historial, int filas, int y_inicial)
 {
+	//Esta funcion recibe tres cosas
+	//historial: el puntero a puntero con todos los intentos guardados.
+    //filas: cuántas filas tiene esa matriz en este momento
+    //y_inicial : en qué fila de la consola empezar a dibujar
 	Console::SetCursorPosition(20, y_inicial);
 	cout << "Resumen de tus intentos:";
 
 	for (int i = 0; i < filas; i++)
 	{
+		//Aquí se recorre fila por fila (cada fila = un intento del jugador), y por cada una imprimes sus 4 columnas.
 		Console::SetCursorPosition(20, y_inicial + 2 + i);
 		cout << historial[i][0] << " / " << historial[i][1] << " = " << historial[i][2];
 		cout << (historial[i][3] == 1 ? "   [Correcto]" : "   [Incorrecto]");
@@ -763,13 +911,13 @@ void pantalla_ganaste(int peces, int** historial, int filasHistorial)
 
 	Console::ForegroundColor = ConsoleColor::Green;
 	Console::SetCursorPosition(20, 1);
-	cout << "╔════════════════════════════════════════════════════╗";
+	cout << "╔═════════════════════════════════════════════════════════╗";
 	Console::SetCursorPosition(20, 2);
-	cout << "║            ¡GANASTE! Abriste el portal             ║";
+	cout << "║                 ¡GANASTE! Abriste el portal             ║";
 	Console::SetCursorPosition(20, 3);
-	cout << "║   Conseguiste " << peces << " peces matematicos    ║";
+	cout << "║                Conseguiste 10 peces matematicos         ║";
 	Console::SetCursorPosition(20, 4);
-	cout << "╚════════════════════════════════════════════════════╝";
+	cout << "╚═════════════════════════════════════════════════════════╝";
 	Console::ResetColor();
 
 	mostrar_historial(historial, filasHistorial, 7);
@@ -807,6 +955,8 @@ void pantalla_perdiste(int** historial, int filasHistorial)
 int main()
 {
 	srand(time(0));  // para que los números sean distintos cada partida
+
+	pantalla_carga();
 
 	//Declaramos las variables de nuestro código
 	int opcion = 0;
@@ -870,15 +1020,21 @@ int main()
 			const int cantidadPeces = 5;
 			Pez* listapeces = new Pez[cantidadPeces];
 
-			listapeces[0] = { 25, 5, true, 0 };
-			listapeces[1] = { 55, 5, true, 0 };
-			listapeces[2] = { 85, 5, true, 0 };
-			listapeces[3] = { 35, 13, true, 0 };
-			listapeces[4] = { 65, 13, true, 0 };
+			//Inciamos el struct que se hizo al inicio
+
+			listapeces[0] = { 25, 5, true, false, false, 0 };
+			listapeces[1] = { 55, 5, true, true, false, 0 };
+			listapeces[2] = { 85, 5, true, false, false, 0 };
+			listapeces[3] = { 35, 13, true, false, false, 0 };
+			listapeces[4] = { 65, 13, true, false, false, 0 };
 
 			const int columnasHistorial = 4;
 			int filasHistorial = 0;
-			int** historial = crear_matriz(0, columnasHistorial);
+			int** historial = crear_matriz(0, columnasHistorial); //Se crea una matriz vacia
+
+			// Este bloque se ejecuta cada vez que el jugador elige "Jugar" desde el menú, no una sola vez al inicio del programa. 
+			// Esto es intencional así, si el jugador gana o pierde y vuelve a jugar, se crea un arreglo y una matriz completamente nuevos. 
+			// Sin arrastrar los datos de la partida anterior.
 
 			//Primer Fotograma
 			portal();
@@ -991,10 +1147,12 @@ int main()
 
 				for (int i = 0; i < cantidadPeces; i++)
 				{
-					if (listapeces[i].visible == false)
+					if (!listapeces[i].visible && !listapeces[i].capturado)
 					{
 						if (time(0) - listapeces[i].tiempo_desaparicion >= 10)
+						{
 							listapeces[i].visible = true;
+						}
 					}
 				}
 
@@ -1042,6 +1200,9 @@ int main()
 
 				}
 
+				//Este es el bloque más largo del juego, pero se entiende bien si lo separamos en sus partes: 
+				//detectar colisión, generar la pregunta, leer la respuesta del jugador, y actualizar el resultado.
+
 				for (int i = 0; i < cantidadPeces; i++)
 				{
 					if (listapeces[i].visible == true)
@@ -1084,14 +1245,54 @@ int main()
 
 							if (correcto == 1)
 							{
-								peces++;
-								listapeces[i].visible = false;
-								listapeces[i].tiempo_desaparicion = time(0);  // guarda el momento actual
+								if (listapeces[i].travieso)
+								{
+									peces += 3;
+
+									listapeces[i].capturado = true;
+									listapeces[i].visible = false;
+
+									system("cls");
+									Console::SetCursorPosition(30, 10);
+									cout << "Atrapaste un pez travieso";
+									Console::SetCursorPosition(30, 12);
+									cout << "+3 peces";
+									Sleep(1500);
+
+									listapeces[i].visible = false;
+									listapeces[i].tiempo_desaparicion = time(0);
+								}
+
+								else
+								{
+									peces++;
+									listapeces[i].visible = false;
+									listapeces[i].tiempo_desaparicion = time(0);
+								}
 							}
 
 							else
 							{
-								vidas--;
+								if (listapeces[i].travieso)
+								{
+									if (peces > 0)
+									{
+										peces--;
+									}
+
+									system("cls");
+									Console::SetCursorPosition(30, 10);
+									cout << "El pez travieso te engaño";
+									Console::SetCursorPosition(30, 12);
+									cout << "Perdiste un pez";
+									Sleep(1500);
+								}
+
+								else
+								{
+									vidas--;
+								}
+
 								listapeces[i].visible = false;
 								listapeces[i].tiempo_desaparicion = time(0);
 							}
