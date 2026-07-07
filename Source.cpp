@@ -1282,7 +1282,7 @@ int main()
 
 									system("cls");
 									Console::SetCursorPosition(30, 10);
-									cout << "El pez travieso te engaño";
+									cout << "El pez travieso te hizo una broma";
 									Console::SetCursorPosition(30, 12);
 									cout << "Perdiste un pez";
 									Sleep(1500);
