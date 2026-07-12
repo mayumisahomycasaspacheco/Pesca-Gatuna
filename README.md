@@ -1,6 +1,6 @@
 # Pesca Gatuna
 
-**Pesca Gatuna** is an educational console game developed in C++. In this adventure, you control a little kitten who has passed through a magical portal and ended up trapped at the bottom of the ocean, separated from its family.
+Pesca Gatuna is an educational console game developed in C++. In this adventure, you control a little kitten who has passed through a magical portal and ended up trapped at the bottom of the ocean, separated from its family.
 
 To help the kitten find its way home, you must explore the entire ocean and catch mathematical fish. Each fish will challenge you with a division problem that you must solve correctly to catch it. Your goal is to collect 10 fish before losing your three lives.
 
@@ -21,3 +21,5 @@ To help the kitten find its way home, you must explore the entire ocean and catc
 - Structs
 - Dynamic Arrays
 - Functions
+
+*A project made for YSWS Calculate by Hack Club.*

@@ -114,9 +114,9 @@ void pantalla_carga()
 		Console::ForegroundColor = ConsoleColor::Cyan;
 
 		Console::SetCursorPosition(10, 3);
-		cout << "Cargando Pesca Gatuna..." << endl;
+		cout << "Loading Pesca Gatuna..." << endl;
 		Console::SetCursorPosition(10, 4);
-		cout << "Por precaucion, coloca tu pantalla en pantalla completa (F11)" << endl;
+		cout << "For best results, put your screen in fullscreen mode (F11)" << endl;
 
 		Console::ResetColor();
 
@@ -613,9 +613,9 @@ void mostrar_mensaje(int x, int y)
 {
 	SetConsoleOutputCP(65001);
 	string lineas[3] = {
-		"╔═════════════════════════════════════╗",
-		"║ Bienvenido al mundo de Pesca Gatuna ║",
-		"╚═════════════════════════════════════╝",
+		"╔══════════════════════════════════════╗",
+		"║ Welcome to the world of Pesca Gatuna ║",
+		"╚══════════════════════════════════════╝",
 	};
 
 	Console::SetCursorPosition(x, y);
@@ -632,9 +632,9 @@ void mostrar_mensaje1(int x, int y)
 {
 	SetConsoleOutputCP(65001);
 	string lineas[3] = {
-		"╔════════════════════════════════════════════════════════════╗",
-		"║ Los peces matemáticos se han escondido por todo el océano. ║",
-		"╚════════════════════════════════════════════════════════════╝",
+		"╔═══════════════════════════════════════════════╗",
+		"║ The math fish have hidden all over the ocean. ║",
+		"╚═══════════════════════════════════════════════╝",
 	};
 
 	Console::SetCursorPosition(x, y);
@@ -651,10 +651,10 @@ void mostrar_mensaje2(int x, int y)
 {
 	SetConsoleOutputCP(65001);
 	string lineas[4] = {
-		"╔═════════════════════════════════════════════╗",
-		"║      Si quieres continuar tu aventura,      ║",
-		"║ deberás encontrarlos resolviendo divisiones.║",
-		"╚═════════════════════════════════════════════╝",
+		"╔════════════════════════════════════════════════╗",
+		"║    If you want to continue your adventure,     ║",
+		"║ you'll need to find them by solving divisions. ║",
+		"╚════════════════════════════════════════════════╝",
 	};
 
 	Console::SetCursorPosition(x, y);
@@ -673,11 +673,11 @@ void mostrar_mensaje3(int x, int y)
 {
 	SetConsoleOutputCP(65001);
 	string lineas[5] = {
-		"╔══════════════════════════════════════════════════════════╗",
-		"║      Necesitas conseguir 10 peces matemáticos para       ║",
-		"║     abrir la puerta que conduce al siguiente mundo.      ║",
-		"║    Pero cuidado, cada error hará que pierdas una vida.   ║",
-		"╚══════════════════════════════════════════════════════════╝",
+		"╔════════════════════════════════════════════════════╗",
+		"║         You need to catch 10 math fish to          ║",
+		"║    open the door that leads to the next world.     ║",
+		"║ But be careful, each mistake will cost you a life. ║",
+		"╚════════════════════════════════════════════════════╝",
 	};
 
 	Console::SetCursorPosition(x, y);
@@ -698,9 +698,9 @@ void mostrar_mensaje4(int x, int y)
 {
 	SetConsoleOutputCP(65001);
 	string lineas[3] = {
-		"╔════════════════════════════════════════════════════════╗",
-		"║ Este portal me ha llevado a otro mundo, debo ir a casa ║",
-		"╚════════════════════════════════════════════════════════╝",
+		"╔═══════════════════════════════════════════════════════════╗",
+		"║ This portal has taken me to another world, I must go home ║",
+		"╚═══════════════════════════════════════════════════════════╝",
 	};
 
 	Console::SetCursorPosition(x, y);
@@ -769,8 +769,8 @@ void dibujarpeces(Pez* listapeces, int cantidad) //listapeces se vuelve un punte
 			//Esto se lee: "si el campo visible del pez al que apunta p es igual a true".
 			//visible es de tipo bool, así que solo puede valer true o false.
 			//Si ese pez específico está marcado como visible(no fue atrapado todavía, o ya pasaron los 10 segundos de respawn), la condición se cumple y entra al if para dibujarlo.
-		    //Si está en false (fue atrapado hace poco y sigue "escondido"), la condición no se cumple, y la función simplemente no lo dibuja — pasa al siguiente pez del for.
-			
+			//Si está en false (fue atrapado hace poco y sigue "escondido"), la condición no se cumple, y la función simplemente no lo dibuja — pasa al siguiente pez del for.
+
 			if (p->travieso)
 			{
 				Console::ForegroundColor = ConsoleColor::Yellow;
@@ -802,13 +802,13 @@ void dibujarpeces(Pez* listapeces, int cantidad) //listapeces se vuelve un punte
 void tablero(int vidas, int peces) //Recibe dos enteros: cuántas vidas le quedan al jugador y cuántos peces ha atrapado.
 {
 	Console::SetCursorPosition(0, 0); //No es parametro, asi que la posición se pone fija
-	cout << "Vidas: ";
+	cout << "Lives: ";
 	for (int i = 0; i < vidas; i++) //Dibuja las vidas
 	{
 		cout << "<3";
 	}
 	cout << "" << endl;
-	cout << "Peces: ";
+	cout << "Fish: ";
 	for (int i = 0; i < peces; i++) //Dibuja los peces atrapados
 		cout << "><>";
 	//No usamos struct porque no hay nada que agrupar
@@ -825,7 +825,7 @@ void generar_division(int dificultad, int& dividendo, int& divisor, int& respues
 	//Encontramos los niveles del juego
 	//Con dificultad == 1, el divisor será entre 1 y 3, y el cociente (la respuesta) entre 1 y 5.
 
-	if (dificultad == 1) 
+	if (dificultad == 1)
 	{
 		divisorMin = 1; divisorMax = 3;
 		cocienteMin = 1; cocienteMax = 5;
@@ -890,17 +890,17 @@ void mostrar_historial(int** historial, int filas, int y_inicial)
 {
 	//Esta funcion recibe tres cosas
 	//historial: el puntero a puntero con todos los intentos guardados.
-    //filas: cuántas filas tiene esa matriz en este momento
-    //y_inicial : en qué fila de la consola empezar a dibujar
+	//filas: cuántas filas tiene esa matriz en este momento
+	//y_inicial : en qué fila de la consola empezar a dibujar
 	Console::SetCursorPosition(20, y_inicial);
-	cout << "Resumen de tus intentos:";
+	cout << "Summary of your attempts:";
 
 	for (int i = 0; i < filas; i++)
 	{
 		//Aquí se recorre fila por fila (cada fila = un intento del jugador), y por cada una imprimes sus 4 columnas.
 		Console::SetCursorPosition(20, y_inicial + 2 + i);
 		cout << historial[i][0] << " / " << historial[i][1] << " = " << historial[i][2];
-		cout << (historial[i][3] == 1 ? "   [Correcto]" : "   [Incorrecto]");
+		cout << (historial[i][3] == 1 ? "   [Correct]" : "   [Incorrect]");
 	}
 }
 
@@ -911,19 +911,19 @@ void pantalla_ganaste(int peces, int** historial, int filasHistorial)
 
 	Console::ForegroundColor = ConsoleColor::Green;
 	Console::SetCursorPosition(20, 1);
-	cout << "╔═════════════════════════════════════════════════════════╗";
+	cout << "╔════════════════════════════════╗";
 	Console::SetCursorPosition(20, 2);
-	cout << "║                 ¡GANASTE! Abriste el portal             ║";
+	cout << "║ YOU WON! You opened the portal ║";
 	Console::SetCursorPosition(20, 3);
-	cout << "║                Conseguiste 10 peces matematicos         ║";
+	cout << "║   You collected 10 math fish   ║";
 	Console::SetCursorPosition(20, 4);
-	cout << "╚═════════════════════════════════════════════════════════╝";
+	cout << "╚════════════════════════════════╝";
 	Console::ResetColor();
 
 	mostrar_historial(historial, filasHistorial, 7);
 
-	Console::SetCursorPosition(20, 9 + filasHistorial);
-	cout << "Presiona una tecla para volver al menu...";
+	Console::SetCursorPosition(20, 11 + filasHistorial);
+	cout << "Press a key to return to the menu...";
 
 	SetConsoleOutputCP(437);
 }
@@ -935,19 +935,19 @@ void pantalla_perdiste(int** historial, int filasHistorial)
 
 	Console::ForegroundColor = ConsoleColor::Red;
 	Console::SetCursorPosition(20, 1);
-	cout << "╔══════════════════════════════════════════╗";
+	cout << "╔══════════════════════════════════╗";
 	Console::SetCursorPosition(20, 2);
-	cout << "║      GAME OVER - Te quedaste sin vidas   ║";
+	cout << "║ GAME OVER - You ran out of lives ║";
 	Console::SetCursorPosition(20, 3);
-	cout << "║           ¡Intentalo de nuevo!           ║";
+	cout << "║            Try again!            ║";
 	Console::SetCursorPosition(20, 4);
-	cout << "╚══════════════════════════════════════════╝";
+	cout << "╚══════════════════════════════════╝";
 	Console::ResetColor();
 
 	mostrar_historial(historial, filasHistorial, 7);
 
 	Console::SetCursorPosition(20, 9 + filasHistorial);
-	cout << "Presiona una tecla para volver al menu...";
+	cout << "Press a key to return to the menu...";
 
 	SetConsoleOutputCP(437);
 }
@@ -973,12 +973,12 @@ int main()
 
 		SetConsoleOutputCP(65001);
 
-		cout << " ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐" << endl;     
-		cout << "═│∙  ╒═╕∙│═│∙  ╒═╕∙│═│∙╒═════╛═│∙  ╒═╕∙│═│∙  ╒═╕∙│" << endl;    
-		cout << " │   └─┘ │ │   └┐└─┘▓│ └─────┐ │   │▓└─┘ │   └─┘ │" << endl;    
-		cout << "░│   ╒═══╛░│   ┌┘┌─┐█╘═══╕  ∙│░│   │░┌─┐░│   ╒═╕ │" << endl;    
-		cout << "▒│   │░░▒▓▒│   │░│ │▓┌───┘   │▒│   │░│ │▒│   │░│ │" << endl;    
-		cout << "═│∙  │═════│∙  ╘═╛∙│═│∙     ∙│═│∙  ╘═╛∙│═│∙  │═│∙│" << endl;    
+		cout << " ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐" << endl;
+		cout << "═│∙  ╒═╕∙│═│∙  ╒═╕∙│═│∙╒═════╛═│∙  ╒═╕∙│═│∙  ╒═╕∙│" << endl;
+		cout << " │   └─┘ │ │   └┐└─┘▓│ └─────┐ │   │▓└─┘ │   └─┘ │" << endl;
+		cout << "░│   ╒═══╛░│   ┌┘┌─┐█╘═══╕  ∙│░│   │░┌─┐░│   ╒═╕ │" << endl;
+		cout << "▒│   │░░▒▓▒│   │░│ │▓┌───┘   │▒│   │░│ │▒│   │░│ │" << endl;
+		cout << "═│∙  │═════│∙  ╘═╛∙│═│∙     ∙│═│∙  ╘═╛∙│═│∙  │═│∙│" << endl;
 		cout << " ╘═══╛     ╘═══════╛ ╘═══════╛ ╘═══════╛ ╘═══╛ ╘═╛" << endl;
 
 		cout << " ┌───────┐ ┌───────┐ ┌───────┐ ┌───┐ ┌─┐ ┌───────┐ ┌───────┐" << endl;
@@ -991,12 +991,12 @@ int main()
 
 		SetConsoleOutputCP(437);
 
-		cout << "Alguna vez deseaste con ser un gatito resolviendo problemas matematicos en el fondo del oceano? Ahora puedes vivirlo!" << endl << endl;
-		cout << "1. Jugar" << endl;
-		cout << "2. Creditos" << endl;
-		cout << "3. Como jugar" << endl;
-		cout << "4. Salir" << endl;
-		cout << "Elige una opcion: ";
+		cout << "Have you ever wished to be a kitten solving math problems at the bottom of the ocean? Now you can live it!" << endl << endl;
+		cout << "1. Play" << endl;
+		cout << "2. Credits" << endl;
+		cout << "3. How to play" << endl;
+		cout << "4. Exit" << endl;
+		cout << "Choose an option: ";
 
 		int cursorX = Console::CursorLeft;
 		int cursorY = Console::CursorTop;
@@ -1218,10 +1218,10 @@ int main()
 
 							system("cls");
 							Console::SetCursorPosition(30, 10);
-							cout << "Resuelve: " << dividendo << " / " << divisor << " = ?";
+							cout << "Solve: " << dividendo << " / " << divisor << " = ?";
 							Console::SetCursorPosition(30, 12);
 
-							cout << "Tu respuesta: ";
+							cout << "Your answer: ";
 							respuesta_jugador = 0;
 							char c;
 
@@ -1254,9 +1254,9 @@ int main()
 
 									system("cls");
 									Console::SetCursorPosition(30, 10);
-									cout << "Atrapaste un pez travieso";
+									cout << "You caught a mischievous fish";
 									Console::SetCursorPosition(30, 12);
-									cout << "+3 peces";
+									cout << "+3 fish";
 									Sleep(1500);
 
 									listapeces[i].visible = false;
@@ -1282,9 +1282,9 @@ int main()
 
 									system("cls");
 									Console::SetCursorPosition(30, 10);
-									cout << "El pez travieso te hizo una broma";
+									cout << "The mischievous fish played a trick on you";
 									Console::SetCursorPosition(30, 12);
-									cout << "Perdiste un pez";
+									cout << "You lost a fish";
 									Sleep(1500);
 								}
 
@@ -1315,7 +1315,7 @@ int main()
 		else if (opcion == 2)
 		{
 			system("cls");
-			cout << "Hecho por: " << endl;
+			cout << "Made by: " << endl;
 			cout << "Miauyummi" << endl;
 
 			playa(40, 0);
@@ -1328,11 +1328,11 @@ int main()
 		else if (opcion == 3)
 		{
 			system("cls");
-			cout << "En pesca gatuna, te convertiras en un adorable gatito que atraviesa un portal magico y" << endl;
-			cout << "cae directo a un mundo submarino lleno de burbujas, algas bailarinas, pulpos curiosos y peces globo gigantes." << endl;
-			cout << "Nada de un lado a otro, esquiva errores, junta 10 peces matematicos antes de quedarte" << endl;
-			cout << "sin tus tres vidas, y descubre si tu gatito logra abrir la puerta hacia el siguiente mundo..." << endl;
-			cout << "o si el oceano te gana esta ronda." << endl;
+			cout << "In Pesca Gatuna, you'll become an adorable kitten who falls through a magic portal and" << endl;
+			cout << "lands straight in an underwater world full of bubbles, dancing seaweed, curious octopuses, and giant pufferfish." << endl;
+			cout << "Swim back and forth, dodge mistakes, and collect 10 math fish before you run out" << endl;
+			cout << "of your three lives, and find out if your kitten manages to open the door to the next world..." << endl;
+			cout << "or if the ocean beats you this round." << endl;
 
 			castillo(50, 10);
 
@@ -1344,12 +1344,12 @@ int main()
 		else if (opcion == 4)
 		{
 			system("cls");
-			cout << "¡Gracias por jugar Pesca Gatuna! Nos vemos pronto." << endl;
+			cout << "Thanks for playing Pesca Gatuna! See you soon." << endl;
 		}
 
 		else
 		{
-			cout << "Opcion invalida" << endl;
+			cout << "Invalid option" << endl;
 			system("pause");
 		}
 
